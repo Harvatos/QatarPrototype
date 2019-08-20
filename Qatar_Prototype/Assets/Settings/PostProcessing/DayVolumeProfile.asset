@@ -245,6 +245,33 @@ MonoBehaviour:
   enableDistantFog:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-2817016555189405914
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598e2d32e2c7b0c418e030c3236d663a, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  spectralLut:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 1
+  maxSamples:
+    m_OverrideState: 0
+    m_Value: 8
+    min: 3
+    max: 24
 --- !u!114 &-1328351878554231902
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -288,6 +315,7 @@ MonoBehaviour:
   - {fileID: 762430829796847378}
   - {fileID: -6026825173021350202}
   - {fileID: 990283642457426242}
+  - {fileID: -2817016555189405914}
 --- !u!114 &762430829796847378
 MonoBehaviour:
   m_ObjectHideFlags: 3
