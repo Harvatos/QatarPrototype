@@ -22,8 +22,7 @@ public class SkyGenerateStars : MonoBehaviour
 			s.transform.Rotate(Random.Range(10f, 90f), 0f, 0f, Space.Self);
 			s.transform.Rotate(0f, Random.Range(0f, 360f), 0f, Space.World);
 
-			s.transform.GetChild(0).localScale *= 0.5f;
+			s.transform.GetChild(0).localScale *=  Random.Range(0.25f, 0.5f);
 		}
 	}
-
 }
