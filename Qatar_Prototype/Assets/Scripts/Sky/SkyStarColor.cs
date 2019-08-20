@@ -30,7 +30,7 @@ public class SkyStarColor : MonoBehaviour
 		if (trail != null)
 		{
 			trail.material.SetColor("_EmissiveColor", c3);
-			trail.time = Random.Range(0.1f, 0.2f);
+			trail.time = Random.Range(0.05f, 0.1f);
 		}
 
 		m.SetColor("_EmissiveColor", c3);
