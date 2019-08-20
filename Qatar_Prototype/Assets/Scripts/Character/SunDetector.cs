@@ -9,8 +9,6 @@ public class SunDetector : MonoBehaviour
 	public Transform[] detectorPointsReferences;
 	public float delayBetweenRaycast;
 
-	public Transform line;
-
 	private float timer = 0;
 	private bool isInSun = false;
 
@@ -25,11 +23,8 @@ public class SunDetector : MonoBehaviour
 
 		if(timer <= 0)
 		{
-			print(isInSun);
 			timer = delayBetweenRaycast;
 			isInSun = false;
-
-			line.forward = -sunLightReference.forward;
 
 			if (skyControllerRef.isDay)
 			{
