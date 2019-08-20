@@ -27,7 +27,7 @@ public class SkyShootingStar : MonoBehaviour
 
 		if(lifeTime > 0)
 		{
-			transform.Rotate(direction * speed * Time.deltaTime);
+			transform.Rotate(direction * speed * Time.deltaTime, Space.Self);
 		}
 
 		else
