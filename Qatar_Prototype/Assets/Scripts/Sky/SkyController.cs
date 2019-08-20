@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SkyController : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class SkyController : MonoBehaviour
 	public Transform skyRotationTarget;
 	public Transform skyDayTransform;
 	public Transform skyNightTransform;
+
+	[Header("Post Processing")]
+	public Volume cameraVolume;
+	public VolumeProfile profileDay;
+	public VolumeProfile profileNight;
 
 	[Header("Values")]
 	public float rotationSpeed;
@@ -45,6 +51,8 @@ public class SkyController : MonoBehaviour
 
 		skyDayTransform.gameObject.SetActive(isDay);
 		skyNightTransform.gameObject.SetActive(!isDay);
+
+		cameraVolume.profile = isDay ? profileDay : profileNight;
 	}
 
 	private void RotateSky(float dt)
