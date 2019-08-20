@@ -4,29 +4,35 @@ using UnityEngine;
 
 public class SkyStarColor : MonoBehaviour
 {
-	public Color color1;
-	public Color color2;
-	public Color color3;
+	[ColorUsageAttribute(true, true)] public Color color1;
+	[ColorUsageAttribute(true, true)] public Color color2;
+	[ColorUsageAttribute(true, true)] public Color color3;
 	public Vector2 MinMaxEmissive;
+	public AnimationCurve intensityCurve;
 
+	private float timer;
+	private float timerSpeed;
 	private Material m;
-	private float initIntensity;
-	private float intensity;
+	private Color initColor;
 
 	private void Start()
 	{
+		timer = Random.Range(0f, 1f);
+		timerSpeed = Random.Range(0.2f, 5f);
+
 		m = GetComponent<Renderer>().material;
 		Color c = Color.Lerp(color1, color2, Random.value);
 		m.SetColor("_EmissiveColor", Color.Lerp(c, color3, Random.value));
-
-		intensity = Random.Range(MinMaxEmissive.x, MinMaxEmissive.y);
-		initIntensity = Random.Range(MinMaxEmissive.x, MinMaxEmissive.y);
-		m.SetFloat("_EmissiveIntensity", intensity);
+		initColor = m.GetColor("_EmissiveColor");
 	}
 
 	private void Update()
 	{
-		intensity = Mathf.Clamp(intensity + Random.Range(-0.1f, 0.1f), initIntensity - 0.5f, initIntensity + 0.5f);
-		m.SetFloat("_EmissiveIntensity", intensity);
+		timer += Time.deltaTime * timerSpeed;
+		while(timer > 1)
+		{
+			timer -= 1;
+		}
+		m.SetColor("_EmissiveColor", initColor * intensityCurve.Evaluate(timer));
 	}
 }
