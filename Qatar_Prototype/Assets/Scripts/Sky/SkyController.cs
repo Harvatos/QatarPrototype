@@ -12,8 +12,13 @@ public class SkyController : MonoBehaviour
 	[Header("Values")]
 	public float rotationSpeed;
 
-	private bool isDay = true;
+	public bool isDay { get; private set; }
 	private bool skyControlsActivated = false;
+
+	private void Start()
+	{
+		ToggleDayCycle(true);
+	}
 
 	private void Update()
 	{
