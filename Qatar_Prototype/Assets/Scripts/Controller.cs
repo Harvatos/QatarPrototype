@@ -229,7 +229,7 @@ public class Controller : MonoBehaviour
 	}
 
 	private void Interact() {
-		if (Input.GetKeyDown(KeyCode.Return)) {
+		if (Input.GetKeyDown(KeyCode.E)) {
 			Collider[] nearColliders = Physics.OverlapSphere(transform.position, interactionRange, interactable);
 			for (int i = 0; i < nearColliders.Length; i++) {
 				Rigidbody interactable = nearColliders[i].transform.GetComponent<Rigidbody>();
