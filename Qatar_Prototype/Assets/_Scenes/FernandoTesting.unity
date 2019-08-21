@@ -1047,6 +1047,11 @@ PrefabInstance:
       propertyPath: interactable.m_Bits
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 6063787621491406349, guid: f20b66a9d8db43448a121172b54521e0,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6063787621491406350, guid: f20b66a9d8db43448a121172b54521e0,
         type: 3}
       propertyPath: m_Constraints
