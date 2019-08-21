@@ -174,9 +174,10 @@ public class Controller : MonoBehaviour
 			Debug.Log("xAngleDiffenreace : " + xAngleDiffenreace);
 
 			float charHeight = charCollider.height;
-			float ratio =  camMaxTilt/ xAngleDiffenreace;
-
-			Vector3 targetBehindPos = transform.position - transform.forward * camThirdPersonDistance * ratio;
+			float ratio = camThirdPersonDistance*(camMaxTilt / xAngleDiffenreace);
+			ratio = Mathf.Clamp(ratio, 0, camThirdPersonDistance);
+			Debug.Log("ratio " + ratio);
+			Vector3 targetBehindPos = transform.position - transform.forward * ratio;
 
 			float zOffSet = targetBehindPos.z;
 
