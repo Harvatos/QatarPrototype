@@ -243,6 +243,7 @@ MonoBehaviour:
   skyRotationTarget: {fileID: 5775477492902415340}
   skyDayTransform: {fileID: 4598939053827752993}
   skyNightTransform: {fileID: 3881054444903956080}
+  dayLightTransform: {fileID: 2131004041}
   cameraVolume: {fileID: 0}
   profileDay: {fileID: 11400000, guid: 566d1f619de5ab0448d6570eaf4125a4, type: 2}
   profileNight: {fileID: 11400000, guid: 03086001c163db94dba61132afae625b, type: 2}

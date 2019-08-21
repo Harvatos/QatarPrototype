@@ -5,10 +5,18 @@ using UnityEngine.Rendering;
 
 public class SkyController : MonoBehaviour
 {
+	public static SkyController instance;
+	private void Awake()
+	{
+		if (instance == null)
+			instance = this;
+	}
+
 	[Header("References")]
 	public Transform skyRotationTarget;
 	public Transform skyDayTransform;
 	public Transform skyNightTransform;
+	public Transform dayLightTransform;
 
 	[Header("Post Processing")]
 	public Volume cameraVolume;
@@ -33,8 +41,7 @@ public class SkyController : MonoBehaviour
 		//Activate sky controls
 		if (Input.GetKeyDown(KeyCode.Keypad5))
 		{
-			skyRotationTarget.rotation = skyDayTransform.rotation;
-			skyControlsActivated = !skyControlsActivated;
+			SetSkyControls(!skyControlsActivated);
 		}
 
 		//Toggle Day/Night
@@ -80,5 +87,18 @@ public class SkyController : MonoBehaviour
 		//Smooth Rotation
 		skyDayTransform.rotation = Quaternion.Lerp(skyDayTransform.rotation, skyRotationTarget.rotation, dt);
 		skyNightTransform.rotation = Quaternion.Lerp(skyNightTransform.rotation, skyRotationTarget.rotation, dt);
+	}
+
+	//Get the difference of the targetRotation and the current rotation
+	public float GetRotationSpeed()
+	{
+		return Mathf.Abs(skyRotationTarget.eulerAngles.y - skyNightTransform.eulerAngles.y);
+	}
+
+	//Set sky controls
+	public void SetSkyControls(bool hasControls)
+	{
+		skyRotationTarget.rotation = skyDayTransform.rotation;
+		skyControlsActivated = hasControls;
 	}
 }
