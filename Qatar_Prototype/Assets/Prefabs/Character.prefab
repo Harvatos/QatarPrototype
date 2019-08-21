@@ -805,7 +805,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1033,6 +1033,7 @@ GameObject:
   - component: {fileID: 6063787621491406350}
   - component: {fileID: 6063787621491406349}
   - component: {fileID: 2531326008289094723}
+  - component: {fileID: 170269999}
   m_Layer: 9
   m_Name: Character
   m_TagString: Untagged
@@ -1123,6 +1124,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddcb44014b1255b41ab9083dc3d777eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &170269999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063787621491406348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2095ed6bec330048b9a5c5df5955854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectorPointsReferences:
+  - {fileID: 6063787621491406351}
+  delayBetweenRaycast: 0.2
 --- !u!1 &6063787621899255342
 GameObject:
   m_ObjectHideFlags: 0

@@ -169,16 +169,19 @@ public class Controller : MonoBehaviour
 			Vector3 targetBehindPos = transform.position - transform.forward * ratio;
 			float zOffSet = targetBehindPos.z;
 
+			Vector3 targetRightPos = transform.position - transform.right * ratio;
+			float xOffSet = targetBehindPos.z;
+
 			Vector3 camTargetPos = transform.position;
 			camTargetPos.z = zOffSet;
+			camTargetPos.x = xOffSet;
 
-
-		//	float leftRation = camThirdPersonRight*(camMaxTilt / xAngleDiffenreace);
-		//	Debug.Log(leftRation);
-		////	leftRation = Mathf.Clamp(ratio, 0, 2);
-		//	Vector3 targetLeftPos = transform.right * ratio;
-		//	float xOffSet = targetLeftPos.z;
-		//	camTargetPos.x = xOffSet;
+			//	float leftRation = camThirdPersonRight*(camMaxTilt / xAngleDiffenreace);
+			//	Debug.Log(leftRation);
+			////	leftRation = Mathf.Clamp(ratio, 0, 2);
+			//	Vector3 targetLeftPos = transform.right * ratio;
+			//	float xOffSet = targetLeftPos.z;
+			//	camTargetPos.x = xOffSet;
 
 			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, targetBehindPos, tempDelta * camTiltSpeed);
 		}
