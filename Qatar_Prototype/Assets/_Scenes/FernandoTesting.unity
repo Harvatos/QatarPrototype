@@ -1042,30 +1042,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6063787621491406349, guid: f20b66a9d8db43448a121172b54521e0,
-        type: 3}
-      propertyPath: cameraRepositioningSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063787621491406349, guid: f20b66a9d8db43448a121172b54521e0,
-        type: 3}
-      propertyPath: camTilt
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063787621491406349, guid: f20b66a9d8db43448a121172b54521e0,
-        type: 3}
-      propertyPath: camMinTilt
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063787621491406349, guid: f20b66a9d8db43448a121172b54521e0,
-        type: 3}
-      propertyPath: camMaxTilt
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063787620298777917, guid: f20b66a9d8db43448a121172b54521e0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20b66a9d8db43448a121172b54521e0, type: 3}
