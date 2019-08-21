@@ -14,7 +14,7 @@ public class ConstellationAlignment : MonoBehaviour
 	public float skyAngleY;
 	public int constellationIndex;
 
-	[Header("Tolerance")]
+	[Header("Tolerances")]
 	public float rotationSpeedTolerance = 7;
 	public float angleTolerance = 5;
 
@@ -37,6 +37,10 @@ public class ConstellationAlignment : MonoBehaviour
 	{
 		//Must be incomplete
 		if (isCompleted)
+			return;
+
+		//Must be night time
+		if (skyController.isDay)
 			return;
 
 		//Index must be >=
