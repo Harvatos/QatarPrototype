@@ -160,7 +160,7 @@ public class Controller : MonoBehaviour
 
 			characterCam.transform.rotation = Quaternion.Slerp(characterCam.transform.transform.rotation, Quaternion.Euler(currentCamRot), tempDelta * camTiltSpeed);
 
-			Vector3 camTargetPos = transform.position;
+			
 			float xAngleDiffenreace = Mathf.Abs(Mathf.DeltaAngle(startingCamRot.x,characterCam.transform.eulerAngles.x));
 
 			float ratio = camThirdPersonDistance*(camMaxTilt / xAngleDiffenreace);
@@ -168,6 +168,8 @@ public class Controller : MonoBehaviour
 	
 			Vector3 targetBehindPos = transform.position - transform.forward * ratio;
 			float zOffSet = targetBehindPos.z;
+
+			Vector3 camTargetPos = transform.position;
 			camTargetPos.z = zOffSet;
 
 
@@ -178,7 +180,7 @@ public class Controller : MonoBehaviour
 		//	float xOffSet = targetLeftPos.z;
 		//	camTargetPos.x = xOffSet;
 
-			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, camTargetPos, tempDelta * camTiltSpeed);
+			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, targetBehindPos, tempDelta * camTiltSpeed);
 		}
 	}
 
