@@ -13,6 +13,7 @@ public class CanvasController : MonoBehaviour
 			instance = this;
 	}
 
+	public TextMeshProUGUI lifeTextRef;
 	public TextMeshProUGUI skyAngleTextRef;
 	public TextMeshProUGUI interactibleTextRef;
 	public Image interactibleIconRef;

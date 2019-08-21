@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.VFX;
 
 public class SkyConstellation : MonoBehaviour
 {
@@ -8,8 +9,11 @@ public class SkyConstellation : MonoBehaviour
 	public GameObject[] defaultStars;
 	public GameObject[] additionalStars;
 	public Line[] lines;
+	public VisualEffect ShineVFX;
 	
 	public int index = 0;
+
+	private List<GameObject> tracedLines = new List<GameObject>();
 
 	private void Start()
 	{
@@ -72,10 +76,41 @@ public class SkyConstellation : MonoBehaviour
 
 				//Set Length
 				line.transform.localScale = new Vector3(1, 1, Vector3.Distance(l.starA.transform.GetChild(0).position, l.starB.transform.GetChild(0).position) / 10);
+
+				//Add in list
+				tracedLines.Add(line);
 			}
 		}
 	}
+
+	//Make that DING when the constellation is alligned
+	public void Shine()
+	{
+		//Default Stars
+		foreach(GameObject o in defaultStars)
+		{
+			o.GetComponentInChildren<SkyStarColor>().Shine(50);
+		}
+
+		//Additional Stars
+		for(int i=0; i<index; i++)
+		{
+			additionalStars[i].GetComponentInChildren<SkyStarColor>().Shine(50);
+		}
+
+		//Lines
+		foreach(GameObject o in tracedLines)
+		{
+			o.GetComponent<SkyStarLineColor>().Shine(50);
+		}
+
+		if(ShineVFX != null)
+			ShineVFX.SendEvent("Play");
+
+	}
+
 }
+
 
 [System.Serializable]
 public class Line

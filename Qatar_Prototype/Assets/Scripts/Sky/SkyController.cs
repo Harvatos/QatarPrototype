@@ -28,10 +28,12 @@ public class SkyController : MonoBehaviour
 
 	public bool isDay { get; private set; }
 	private bool skyControlsActivated = false;
+	private Transform playerTransform;
 
 	private void Start()
 	{
 		ToggleDayCycle(true);
+		playerTransform = PlayerSingleton.instance.transform;
 	}
 
 	private void Update()
@@ -50,6 +52,9 @@ public class SkyController : MonoBehaviour
 
 		//Rotate Sky
 		RotateSky(dt);
+
+		//Follow Player
+		transform.position = playerTransform.position;
 	}
 
 	private void ToggleDayCycle(bool isDay)
