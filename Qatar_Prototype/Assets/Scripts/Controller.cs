@@ -163,7 +163,11 @@ public class Controller : MonoBehaviour
 			//currentCamPos.y -= cameraRotation.x;
 			//currentCamPos.y = Mathf.Clamp(currentCamPos.y, 0.5f, 3);
 			//characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, currentCamPos, tempDelta * camTiltSpeed/2);
+			Vector3 eyePosition = transform.position;
+			eyePosition.y += .7f;
 			
+			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, eyePosition, tempDelta * camTiltSpeed);
+
 			currentCamRot.x -= cameraRotation.x;
 			currentCamRot.x = Mathf.Clamp(currentCamRot.x, camMinTilt, camMaxTilt);
 
