@@ -1021,6 +1021,7 @@ GameObject:
   - component: {fileID: 6063787621491406349}
   - component: {fileID: 2531326008289094723}
   - component: {fileID: 170269999}
+  - component: {fileID: 2829815609275681398}
   m_Layer: 9
   m_Name: Character
   m_TagString: Untagged
@@ -1127,6 +1128,25 @@ MonoBehaviour:
   detectorPointsReferences:
   - {fileID: 6063787621491406351}
   delayBetweenRaycast: 0.2
+--- !u!95 &2829815609275681398
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063787621491406348}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b0a85a292618f494d800789b95befd29, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6063787621899255342
 GameObject:
   m_ObjectHideFlags: 0
