@@ -33,6 +33,7 @@ public class Controller : MonoBehaviour
 	public float camMaxTilt = 30;
 
 	public float camThirdPersonDistance = 5;
+	public float camThirdPersonAbove = 2;
 
 	private Vector3 smoothRef = Vector3.zero;
 
@@ -116,6 +117,10 @@ public class Controller : MonoBehaviour
 			}
 			else {
 				body.MoveRotation(body.rotation * Quaternion.Euler(characterRotation));
+				Vector3 charachterRotation = transform.eulerAngles;
+				charachterRotation.x = 0;
+				charachterRotation.z = 0;
+				transform.eulerAngles = charachterRotation;
 			}
 		}
 	}
@@ -139,7 +144,7 @@ public class Controller : MonoBehaviour
 
 				Vector3 direction =  characterCam.transform.forward * 100;
 		
-				transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, direction, tempDelta * cameraRotationgSpeed * 2, 0.0f));
+				transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, direction, tempDelta * cameraRotationgSpeed * 10, 0.0f));
 
 				Debug.Log(Vector3.Angle(transform.forward * 100, direction));
 				if (Vector3.Angle(transform.forward * 100, direction) < 10) {
@@ -176,13 +181,14 @@ public class Controller : MonoBehaviour
 
 	public Vector3 GetPlayerBehindPos() {
 		Vector3 camFollowPos = transform.position - transform.forward * camThirdPersonDistance;
-		camFollowPos.y += 1.84f;
+		camFollowPos.y += camThirdPersonAbove;
 		return camFollowPos;
 	}
 
 	public Vector3 GetThirdPersonRot() {
 		Vector3 camAngle = transform.eulerAngles;
 		camAngle.x = 10;
+		camAngle.z = 0;
 		return camAngle;
 	}
 
