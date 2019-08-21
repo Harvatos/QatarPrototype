@@ -14,7 +14,7 @@ public class ConstellationAlignment : MonoBehaviour
 	public float skyAngleY;
 	public int constellationIndex;
 
-	[Header("Tolerance")]
+	[Header("Tolerances")]
 	public float rotationSpeedTolerance = 7;
 	public float angleTolerance = 5;
 
@@ -25,6 +25,7 @@ public class ConstellationAlignment : MonoBehaviour
 	private Transform playerTransform;
 	private Camera cam;
 	private bool isCompleted = false;
+	private bool debug = false;
 
 	private void Start()
 	{
@@ -39,27 +40,51 @@ public class ConstellationAlignment : MonoBehaviour
 		if (isCompleted)
 			return;
 
+		if (debug)
+			print("OK: 1");
+
+		//Must be night time
+		if (skyController.isDay)
+			return;
+
+		if (debug)
+			print("OK: 2");
+
 		//Index must be >=
 		if (constellationRef.index < constellationIndex)
 			return;
+
+		if (debug)
+			print("OK: 3");
 
 		//Player Must Be in zone
 		if (Vector3.Distance(transform.position, playerTransform.position) > positionRadius)
 			return;
 
+		if (debug)
+			print("OK: 4");
+
 		//Sky Angle Must be good
 		if (Mathf.Abs(skyAngleY - skyController.skyNightTransform.eulerAngles.y) > angleTolerance)
 			return;
+
+		if (debug)
+			print("OK: 5");
 
 		//Must be slow enought
 		if (skyController.GetRotationSpeed() > rotationSpeedTolerance)
 			return;
 
+		if (debug)
+			print("OK: 6");
+
 		//Must look at constellation
 		Vector3 viewport = cam.WorldToViewportPoint(transform.position);
-		float tolerance = 0.2f;
-		if (viewport.x > (1 - tolerance) || viewport.x < tolerance || viewport.y > (1 - tolerance) || viewport.y < tolerance)
+		if (viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1)
 			return;
+
+		if (debug)
+			print("OK: 7");
 
 		//IS GOOD
 		Alignment();
