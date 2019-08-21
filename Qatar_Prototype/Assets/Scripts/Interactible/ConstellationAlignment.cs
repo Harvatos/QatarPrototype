@@ -70,6 +70,8 @@ public class ConstellationAlignment : MonoBehaviour
 		isCompleted = true;
 		skyController.SetSkyControls(false);
 		skyController.skyRotationTarget.eulerAngles = new Vector3(0, skyAngleY, 0);
+		constellationRef.Shine();
+
 		CompletedEvent.Invoke();
 	}
 

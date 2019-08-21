@@ -428,6 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801425df0fb642349a2927bf729dd847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTextRef: {fileID: 2454406031669950687}
   skyAngleTextRef: {fileID: 8790072005437132296}
   interactibleTextRef: {fileID: 3570854041125567782}
   interactibleIconRef: {fileID: 6917921728711800028}
