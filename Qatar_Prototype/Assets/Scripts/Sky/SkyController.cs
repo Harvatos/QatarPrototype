@@ -32,7 +32,7 @@ public class SkyController : MonoBehaviour
 
 	private void Start()
 	{
-		ToggleDayCycle(true);
+		SetDayCycle(true);
 		playerTransform = PlayerSingleton.instance.transform;
 	}
 
@@ -48,7 +48,7 @@ public class SkyController : MonoBehaviour
 
 		//Toggle Day/Night
 		if (Input.GetKeyDown(KeyCode.Keypad7))
-			ToggleDayCycle(!isDay);
+			ToggleDayCycle();
 
 		//Rotate Sky
 		RotateSky(dt);
@@ -57,7 +57,12 @@ public class SkyController : MonoBehaviour
 		transform.position = playerTransform.position;
 	}
 
-	private void ToggleDayCycle(bool isDay)
+	public void ToggleDayCycle()
+	{
+		SetDayCycle(!isDay);
+	}
+
+	public void SetDayCycle(bool isDay)
 	{
 		this.isDay = isDay;
 
