@@ -34,6 +34,7 @@ public class Controller : MonoBehaviour
 
 	public float camThirdPersonDistance = 5;
 	public float camThirdPersonAbove = 2;
+	public float camThirdPersonRight = 2;
 
 	private Vector3 smoothRef = Vector3.zero;
 
@@ -48,6 +49,7 @@ public class Controller : MonoBehaviour
 
 	public float interactionRange = 5;
 
+	private CapsuleCollider charCollider;
 	
 
 	void Start()
@@ -58,8 +60,11 @@ public class Controller : MonoBehaviour
 	private void InitCharacter() {
 		CenterMouse();
 		body = GetComponent<Rigidbody>();
+		charCollider = GetComponentInChildren<CapsuleCollider>();
 		characterCam = GetComponentInChildren<Camera>();
 		characterCam.gameObject.transform.SetParent(null);
+
+		startingCamRot = characterCam.transform.eulerAngles;
 	}
 
 	private void CenterMouse() {
@@ -158,23 +163,32 @@ public class Controller : MonoBehaviour
 				camIdel = true;
 			}
 
-			//currentCamPos.y = Mathf.Clamp(currentCamPos.y,0, startingCamPos.y);
-
-			//currentCamPos.y -= cameraRotation.x;
-			//currentCamPos.y = Mathf.Clamp(currentCamPos.y, 0.5f, 3);
-			//characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, currentCamPos, tempDelta * camTiltSpeed/2);
-			Vector3 eyePosition = transform.position;
-			eyePosition.y += .7f;
-			
-			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, eyePosition, tempDelta * camTiltSpeed);
-
 			currentCamRot.x -= cameraRotation.x;
 			currentCamRot.x = Mathf.Clamp(currentCamRot.x, camMinTilt, camMaxTilt);
-
 			currentCamRot.y += cameraRotation.y;
 
-			characterCam.transform.rotation = Quaternion.Slerp(characterCam.transform.transform.rotation, Quaternion.Euler(currentCamRot), tempDelta * camTiltSpeed*2);
-		}	
+			characterCam.transform.rotation = Quaternion.Slerp(characterCam.transform.transform.rotation, Quaternion.Euler(currentCamRot), tempDelta * camTiltSpeed);
+
+			Vector3 camTargetPos = transform.position;
+			float xAngleDiffenreace = Mathf.Abs(Mathf.DeltaAngle(startingCamRot.x,characterCam.transform.eulerAngles.x));
+
+			float ratio = camThirdPersonDistance*(camMaxTilt / xAngleDiffenreace);
+			ratio = Mathf.Clamp(ratio, 0, camThirdPersonDistance);
+	
+			Vector3 targetBehindPos = transform.position - transform.forward * ratio;
+			float zOffSet = targetBehindPos.z;
+			camTargetPos.z = zOffSet;
+
+
+			//float leftRation = camThirdPersonRight * (camMaxTilt / xAngleDiffenreace);
+			//Debug.Log(leftRation);
+			//leftRation = Mathf.Clamp(ratio, 0, 2);
+			//Vector3 targetLeftPos = transform.right * ratio;
+			//float xOffSet = targetLeftPos.z;
+			//camTargetPos.x = xOffSet;
+
+			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, camTargetPos, tempDelta * camTiltSpeed);
+		}
 	}
 
 	private void CameraFollow() {
@@ -215,7 +229,6 @@ public class Controller : MonoBehaviour
 
 		if(grounded)
 			collided = false;
-
 	}
 
 	private void SetAirTime() {

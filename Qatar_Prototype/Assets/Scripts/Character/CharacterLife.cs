@@ -6,10 +6,11 @@ using UnityEngine.Rendering;
 
 public class CharacterLife : MonoBehaviour
 {
-	public TextMeshProUGUI lifeIndicator;
 	public float sunlightDamagePerSecond;
 	public float shadowRegenPerSecond;
-	public Volume heatStrokeProfile;
+
+	private Volume heatStrokeVolume;
+	private TextMeshProUGUI lifeIndicator;
 
 	private SunDetector sd;
 	private float HP = 100;
@@ -17,6 +18,8 @@ public class CharacterLife : MonoBehaviour
 	private void Start()
 	{
 		sd = GetComponent<SunDetector>();
+		heatStrokeVolume = CameraSingleton.instance.GetComponent<Volume>();
+		lifeIndicator = CanvasController.instance.lifeTextRef;
 	}
 
 	private void Update()
@@ -29,7 +32,7 @@ public class CharacterLife : MonoBehaviour
 
 		HP = Mathf.Clamp(HP, 0, 100);
 
-		heatStrokeProfile.weight = HP / 100f;
+		heatStrokeVolume.weight = HP / 100f;
 		lifeIndicator.text = Mathf.Round(HP).ToString() + "HP";
 	}
 }

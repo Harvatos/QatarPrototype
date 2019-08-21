@@ -5,10 +5,18 @@ using UnityEngine.Rendering;
 
 public class SkyController : MonoBehaviour
 {
+	public static SkyController instance;
+	private void Awake()
+	{
+		if (instance == null)
+			instance = this;
+	}
+
 	[Header("References")]
 	public Transform skyRotationTarget;
 	public Transform skyDayTransform;
 	public Transform skyNightTransform;
+	public Transform dayLightTransform;
 
 	[Header("Post Processing")]
 	public Volume cameraVolume;
@@ -20,10 +28,12 @@ public class SkyController : MonoBehaviour
 
 	public bool isDay { get; private set; }
 	private bool skyControlsActivated = false;
+	private Transform playerTransform;
 
 	private void Start()
 	{
 		ToggleDayCycle(true);
+		playerTransform = PlayerSingleton.instance.transform;
 	}
 
 	private void Update()
@@ -33,8 +43,7 @@ public class SkyController : MonoBehaviour
 		//Activate sky controls
 		if (Input.GetKeyDown(KeyCode.Keypad5))
 		{
-			skyRotationTarget.rotation = skyDayTransform.rotation;
-			skyControlsActivated = !skyControlsActivated;
+			SetSkyControls(!skyControlsActivated);
 		}
 
 		//Toggle Day/Night
@@ -43,6 +52,9 @@ public class SkyController : MonoBehaviour
 
 		//Rotate Sky
 		RotateSky(dt);
+
+		//Follow Player
+		transform.position = playerTransform.position;
 	}
 
 	private void ToggleDayCycle(bool isDay)
@@ -80,5 +92,18 @@ public class SkyController : MonoBehaviour
 		//Smooth Rotation
 		skyDayTransform.rotation = Quaternion.Lerp(skyDayTransform.rotation, skyRotationTarget.rotation, dt);
 		skyNightTransform.rotation = Quaternion.Lerp(skyNightTransform.rotation, skyRotationTarget.rotation, dt);
+	}
+
+	//Get the difference of the targetRotation and the current rotation
+	public float GetRotationSpeed()
+	{
+		return Mathf.Abs(skyRotationTarget.eulerAngles.y - skyNightTransform.eulerAngles.y);
+	}
+
+	//Set sky controls
+	public void SetSkyControls(bool hasControls)
+	{
+		skyRotationTarget.rotation = skyDayTransform.rotation;
+		skyControlsActivated = hasControls;
 	}
 }
