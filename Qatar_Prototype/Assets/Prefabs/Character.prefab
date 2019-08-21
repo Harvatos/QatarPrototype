@@ -1076,7 +1076,7 @@ MonoBehaviour:
     m_Bits: 1
   interactable:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   currentCamPos: {x: 0, y: 0, z: 0}
   movingSpeed: 7
   rotationSpeed: 3
@@ -1088,6 +1088,7 @@ MonoBehaviour:
   camMaxTilt: 10
   camThirdPersonDistance: 5
   camThirdPersonAbove: 2
+  camThirdPersonRight: 2
   jumpForce: 15
   airTime: 75
   jumpGravity: 45
