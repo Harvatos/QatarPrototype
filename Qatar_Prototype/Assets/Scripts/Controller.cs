@@ -34,6 +34,7 @@ public class Controller : MonoBehaviour
 
 	public float camThirdPersonDistance = 5;
 	public float camThirdPersonAbove = 2;
+	public float camThirdPersonRight = 2;
 
 	private Vector3 smoothRef = Vector3.zero;
 
@@ -171,18 +172,20 @@ public class Controller : MonoBehaviour
 			Vector3 camTargetPos = transform.position;
 			float xAngleDiffenreace = Mathf.Abs(Mathf.DeltaAngle(startingCamRot.x,characterCam.transform.eulerAngles.x));
 
-			Debug.Log("xAngleDiffenreace : " + xAngleDiffenreace);
-
-			float charHeight = charCollider.height;
 			float ratio = camThirdPersonDistance*(camMaxTilt / xAngleDiffenreace);
 			ratio = Mathf.Clamp(ratio, 0, camThirdPersonDistance);
-			Debug.Log("ratio " + ratio);
+	
 			Vector3 targetBehindPos = transform.position - transform.forward * ratio;
-
 			float zOffSet = targetBehindPos.z;
-
-			Debug.Log(" ZOffSet : " + zOffSet);
 			camTargetPos.z = zOffSet;
+
+
+			//float leftRation = camThirdPersonRight * (camMaxTilt / xAngleDiffenreace);
+			//Debug.Log(leftRation);
+			//leftRation = Mathf.Clamp(ratio, 0, 2);
+			//Vector3 targetLeftPos = transform.right * ratio;
+			//float xOffSet = targetLeftPos.z;
+			//camTargetPos.x = xOffSet;
 
 			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, camTargetPos, tempDelta * camTiltSpeed);
 		}
