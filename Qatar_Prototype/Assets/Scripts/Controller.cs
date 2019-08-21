@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
 	public LayerMask groundMask;
+	public LayerMask interactable;
 
 	private Rigidbody body;
 	private Camera characterCam;
@@ -30,6 +31,8 @@ public class Controller : MonoBehaviour
 	public float camTiltSpeed = 3;
 	public float camMinTilt = -20;
 	public float camMaxTilt = 30;
+
+	public float camThirdPersonDistance = 5;
 
 	private Vector3 smoothRef = Vector3.zero;
 
@@ -98,6 +101,7 @@ public class Controller : MonoBehaviour
 	}
 
 	private void PerformMovement() {
+		if (camIdel) return;
 		if (velocity != Vector3.zero) {
 			body.MovePosition(body.position + velocity * tempDelta);
 		}
@@ -128,7 +132,20 @@ public class Controller : MonoBehaviour
 			//		camIdel = false;
 			//	}
 			//}
-			camIdel = false;
+			if(camIdel) {
+				Vector3 targetRotation = currentCamRot;
+				targetRotation.x = 0;
+				targetRotation.z = 0;
+
+				Vector3 direction =  characterCam.transform.forward * 100;
+		
+				transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, direction, tempDelta * cameraRotationgSpeed * 2, 0.0f));
+
+				Debug.Log(Vector3.Angle(transform.forward * 100, direction));
+				if (Vector3.Angle(transform.forward * 100, direction) < 10) {
+					camIdel = false;
+				}
+			}
 		} else {
 			if(!camIdel) {
 				currentCamRot = transform.eulerAngles;
@@ -146,19 +163,19 @@ public class Controller : MonoBehaviour
 			currentCamRot.x = Mathf.Clamp(currentCamRot.x, camMinTilt, camMaxTilt);
 
 			currentCamRot.y += cameraRotation.y;
+
 			characterCam.transform.rotation = Quaternion.Slerp(characterCam.transform.transform.rotation, Quaternion.Euler(currentCamRot), tempDelta * camTiltSpeed*2);
 		}	
 	}
 
 	private void CameraFollow() {
 		if (velocity.magnitude == 0 && grounded) return;
-
 		characterCam.transform.position = Vector3.SmoothDamp(characterCam.transform.position, GetPlayerBehindPos(), ref smoothRef, tempDelta * cameraMovingSpeed);
 		characterCam.transform.rotation = Quaternion.Slerp(characterCam.transform.rotation, Quaternion.Euler(GetThirdPersonRot()), tempDelta * cameraRotationgSpeed);
 	}
 
 	public Vector3 GetPlayerBehindPos() {
-		Vector3 camFollowPos = transform.position - transform.forward * 4;
+		Vector3 camFollowPos = transform.position - transform.forward * camThirdPersonDistance;
 		camFollowPos.y += 1.84f;
 		return camFollowPos;
 	}
@@ -182,9 +199,7 @@ public class Controller : MonoBehaviour
 		bool _hittedGround = false;
 		RaycastHit jumpHit;
 		if (Physics.Raycast(transform.position, Vector3.down, out jumpHit,1.25f, groundMask)) {
-			//if (jumpHit.collider.tag == "Ground") {
-				_hittedGround = true;
-			//}
+			_hittedGround = true;
 		}
 		grounded = _hittedGround;
 
@@ -209,12 +224,10 @@ public class Controller : MonoBehaviour
 
 	private void Interact() {
 		if (Input.GetKeyDown(KeyCode.Return)) {
-			Collider[] nearColliders = Physics.OverlapSphere(transform.position, interactionRange);
+			Collider[] nearColliders = Physics.OverlapSphere(transform.position, interactionRange, interactable);
 			for (int i = 0; i < nearColliders.Length; i++) {
-				if (nearColliders[i].transform.tag == "Interactable") {
-					Rigidbody interactable = nearColliders[i].transform.GetComponent<Rigidbody>();
-					interactable.AddForce(transform.forward * 1000);
-				}
+				Rigidbody interactable = nearColliders[i].transform.GetComponent<Rigidbody>();
+				interactable.AddForce(transform.forward * 1000);
 			}
 		}
 	}
