@@ -15,6 +15,7 @@ public class SkyStarColor : MonoBehaviour
 	private float timerSpeed;
 	private Material m;
 	private Color initColor;
+	private float shineMultiplier = 0;
 
 	private void Start()
 	{
@@ -39,11 +40,30 @@ public class SkyStarColor : MonoBehaviour
 
 	private void Update()
 	{
+		//Reduce shine multiplier
+		if (shineMultiplier > 1)
+		{
+			shineMultiplier -= Time.deltaTime * 10;
+		}
+
+		else if (shineMultiplier < 1)
+		{
+			shineMultiplier = 1;
+		}
+
+		//Flicker Effect
 		timer += Time.deltaTime * timerSpeed;
+
 		while(timer > 1)
 		{
 			timer -= 1;
 		}
-		m.SetColor("_EmissiveColor", initColor * intensityCurve.Evaluate(timer));
+
+		m.SetColor("_EmissiveColor", shineMultiplier * initColor * intensityCurve.Evaluate(timer));
+	}
+
+	public void Shine(float intensity)
+	{
+		shineMultiplier = intensity;
 	}
 }

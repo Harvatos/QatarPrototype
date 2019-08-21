@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class SunDetector : MonoBehaviour
 {
-	public Transform sunLightReference;
-	public SkyController skyControllerRef;
 	public Transform[] detectorPointsReferences;
 	public float delayBetweenRaycast;
 
+	private SkyController skyControllerRef;
+	private Transform sunLightReference;
 	private float timer = 0;
 	private bool isInSun = false;
+
+	private void Start()
+	{
+		skyControllerRef = SkyController.instance;
+		sunLightReference = skyControllerRef.dayLightTransform;
+	}
 
 	public bool isInSunLight()
 	{
