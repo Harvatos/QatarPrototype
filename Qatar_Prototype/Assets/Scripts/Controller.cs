@@ -50,7 +50,8 @@ public class Controller : MonoBehaviour
 	public float interactionRange = 5;
 
 	private CapsuleCollider charCollider;
-	
+
+	public bool startMode;
 
 	void Start()
     {
@@ -90,6 +91,10 @@ public class Controller : MonoBehaviour
 		cameraRotation = new Vector3(_xRotation, _yRotation, 0);
 		//STATS
 		SetGrounded();
+
+		if (Input.GetKeyDown(KeyCode.Q)) {
+			startMode = !startMode;
+		}
 	
 	}
 
@@ -100,7 +105,7 @@ public class Controller : MonoBehaviour
 		PerformMovement();
 		PerformRotation();
 		CameraFollow();
-		//PerformCameraRotation();
+	    PerformCameraRotation();
 		//CONTROLLED
 		Jump();
 		Interact();
@@ -108,30 +113,26 @@ public class Controller : MonoBehaviour
 
 	private void PerformMovement() {
 		if (camIdel) return;
+		if (startMode) return;
 		if (velocity != Vector3.zero) {
 			body.MovePosition(body.position + velocity * tempDelta);
 		}
 	}
 
 	private void PerformRotation() {
+		if (startMode) return;
 		//if (velocity.magnitude == 0) return;
 		if (grounded) {
-			if (characterRotation == Vector3.zero) {
-				body.MoveRotation(body.rotation * Quaternion.identity);
-				body.angularVelocity = Vector3.zero;
-			}
-			else {
+			if (characterRotation != Vector3.zero) {
 				body.MoveRotation(body.rotation * Quaternion.Euler(characterRotation));
-				Vector3 charachterRotation = transform.eulerAngles;
-				charachterRotation.x = 0;
-				charachterRotation.z = 0;
-				transform.eulerAngles = charachterRotation;
+				//Vector3 charachterRotation = transform.eulerAngles;
+			//	charachterRotation.z = 0;
+			//	transform.eulerAngles = charachterRotation;
 			}
 		}
 	}
 
 	private void PerformCameraRotation() {
-		if (!grounded) return;
 		if (velocity.magnitude != 0) {
 			if(camIdel) {
 				Vector3 targetRotation = currentCamRot;
@@ -147,6 +148,8 @@ public class Controller : MonoBehaviour
 				}
 			}
 		} else {
+			if (!startMode) return;
+
 			if(!camIdel) {
 				currentCamRot = transform.eulerAngles;
 				currentCamPos = GetPlayerBehindPos();
@@ -186,7 +189,7 @@ public class Controller : MonoBehaviour
 	}
 
 	private void CameraFollow() {
-		//if (velocity.magnitude == 0 && grounded) return;
+		if (startMode) return;
 		characterCam.transform.position = Vector3.SmoothDamp(characterCam.transform.position, GetPlayerBehindPos(), ref smoothRef, tempDelta * cameraMovingSpeed);
 		characterCam.transform.rotation = Quaternion.Slerp(characterCam.transform.rotation, Quaternion.Euler(GetThirdPersonRot()), tempDelta * cameraRotationgSpeed);
 	}
