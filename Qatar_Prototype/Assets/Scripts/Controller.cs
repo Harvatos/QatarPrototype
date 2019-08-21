@@ -133,15 +133,6 @@ public class Controller : MonoBehaviour
 	private void PerformCameraRotation() {
 		if (!grounded) return;
 		if (velocity.magnitude != 0) {
-			//if (camIdel) {
-			//	camFloatingPoint.position = Vector3.Lerp(camFloatingPoint.localPosition, GetPlayerBehindPos(), tempDelta * cameraRepositioningSpeed);
-			//	//camFloatingPoint.localPosition = startingCamPos;
-			//	//	camFloatingPoint.localRotation = Quaternion.Slerp(camFloatingPoint.localRotation, Quaternion.Euler(startingCamRot), tempDelta * cameraRepositioningSpeed * 2);
-			//	Debug.Log((camFloatingPoint.localPosition - startingCamPos).sqrMagnitude);
-			//	if ((camFloatingPoint.localPosition - startingCamPos).sqrMagnitude < 100) {
-			//		camIdel = false;
-			//	}
-			//}
 			if(camIdel) {
 				Vector3 targetRotation = currentCamRot;
 				targetRotation.x = 0;
@@ -169,7 +160,7 @@ public class Controller : MonoBehaviour
 
 			characterCam.transform.rotation = Quaternion.Slerp(characterCam.transform.transform.rotation, Quaternion.Euler(currentCamRot), tempDelta * camTiltSpeed);
 
-			Vector3 camTargetPos = transform.position;
+			
 			float xAngleDiffenreace = Mathf.Abs(Mathf.DeltaAngle(startingCamRot.x,characterCam.transform.eulerAngles.x));
 
 			float ratio = camThirdPersonDistance*(camMaxTilt / xAngleDiffenreace);
@@ -177,17 +168,19 @@ public class Controller : MonoBehaviour
 	
 			Vector3 targetBehindPos = transform.position - transform.forward * ratio;
 			float zOffSet = targetBehindPos.z;
+
+			Vector3 camTargetPos = transform.position;
 			camTargetPos.z = zOffSet;
 
 
-			//float leftRation = camThirdPersonRight * (camMaxTilt / xAngleDiffenreace);
-			//Debug.Log(leftRation);
-			//leftRation = Mathf.Clamp(ratio, 0, 2);
-			//Vector3 targetLeftPos = transform.right * ratio;
-			//float xOffSet = targetLeftPos.z;
-			//camTargetPos.x = xOffSet;
+		//	float leftRation = camThirdPersonRight*(camMaxTilt / xAngleDiffenreace);
+		//	Debug.Log(leftRation);
+		////	leftRation = Mathf.Clamp(ratio, 0, 2);
+		//	Vector3 targetLeftPos = transform.right * ratio;
+		//	float xOffSet = targetLeftPos.z;
+		//	camTargetPos.x = xOffSet;
 
-			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, camTargetPos, tempDelta * camTiltSpeed);
+			characterCam.transform.position = Vector3.Lerp(characterCam.transform.position, targetBehindPos, tempDelta * camTiltSpeed);
 		}
 	}
 
