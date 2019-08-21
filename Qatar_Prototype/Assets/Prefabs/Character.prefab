@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6063787620057627013}
   - component: {fileID: 6063787620057627015}
   - component: {fileID: 6063787620057627014}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063787620305149758}
   - component: {fileID: 6063787620305149759}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 6063787620310435008}
   - component: {fileID: 6063787620310435010}
   - component: {fileID: 6063787620310435009}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 6063787620357187801}
   - component: {fileID: 6063787620357187803}
   - component: {fileID: 6063787620357187802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 6063787620804327352}
   - component: {fileID: 6063787620804327354}
   - component: {fileID: 6063787620804327353}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 6063787620833066036}
   - component: {fileID: 6063787620833066038}
   - component: {fileID: 6063787620833066037}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 6063787620878632439}
   - component: {fileID: 6063787620878632433}
   - component: {fileID: 6063787620878632432}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 6063787620926034238}
   - component: {fileID: 6063787620926034232}
   - component: {fileID: 6063787620926034239}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 6063787621001863138}
   - component: {fileID: 6063787621001863132}
   - component: {fileID: 6063787621001863139}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 6063787621122446564}
   - component: {fileID: 6063787621122446566}
   - component: {fileID: 6063787621122446565}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 6063787621220807295}
   - component: {fileID: 6063787621220807294}
   - component: {fileID: 6063787621220807293}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CharacterCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 6063787621440355576}
   - component: {fileID: 6063787621440355578}
   - component: {fileID: 6063787621440355577}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1019,7 +1019,7 @@ GameObject:
   - component: {fileID: 6063787621491406351}
   - component: {fileID: 6063787621491406350}
   - component: {fileID: 6063787621491406349}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,16 +1071,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eac65e3610f9c443bc924c06cc891d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
   currentCamPos: {x: 0, y: 0, z: 0}
   movingSpeed: 7
   rotationSpeed: 1.3
   cameraMovingSpeed: 7
-  cameraRotationgSpeed: 200
-  cameraRepositioningSpeed: 1
+  cameraRotationgSpeed: 3
+  cameraRepositioningSpeed: 2
   camTiltSpeed: 3
-  camMinTilt: -20
-  camMaxTilt: 30
-  camDistance: 0
+  camMinTilt: -25
+  camMaxTilt: 10
   jumpForce: 15
   airTime: 75
   jumpGravity: 45
@@ -1100,7 +1102,7 @@ GameObject:
   - component: {fileID: 6063787621899255343}
   - component: {fileID: 6063787621899255337}
   - component: {fileID: 6063787621899255336}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+	public LayerMask groundMask;
 
 	private Rigidbody body;
 	private Camera characterCam;
@@ -26,14 +27,11 @@ public class Controller : MonoBehaviour
 	public float cameraRotationgSpeed = 200;
 	public float cameraRepositioningSpeed = 1;
 
-
 	public float camTiltSpeed = 3;
 	public float camMinTilt = -20;
 	public float camMaxTilt = 30;
 
 	private Vector3 smoothRef = Vector3.zero;
-
-	
 
 	public float jumpForce = 1000;
 	public float airTime = 10;
@@ -183,10 +181,10 @@ public class Controller : MonoBehaviour
 	private void SetGrounded() {
 		bool _hittedGround = false;
 		RaycastHit jumpHit;
-		if (Physics.Raycast(transform.position, Vector3.down, out jumpHit,1.25f)) {
-			if (jumpHit.collider.tag == "Ground") {
+		if (Physics.Raycast(transform.position, Vector3.down, out jumpHit,1.25f, groundMask)) {
+			//if (jumpHit.collider.tag == "Ground") {
 				_hittedGround = true;
-			}
+			//}
 		}
 		grounded = _hittedGround;
 
