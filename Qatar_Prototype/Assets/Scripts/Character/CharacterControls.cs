@@ -18,6 +18,8 @@ public class CharacterControls : MonoBehaviour
 	[Header("Rotation")]
 	public float rotationSpeed;
 
+	public bool isWalking { get; private set; }
+	public bool isRunning { get; private set; }
 	private CameraControls camControls;
 	private Rigidbody rb;
 	private bool isGrounded = false;
@@ -48,13 +50,17 @@ public class CharacterControls : MonoBehaviour
 			bool d = Input.GetKey(KeyCode.D);
 			bool space = Input.GetKey(KeyCode.Space);
 			bool spaceUp = Input.GetKeyUp(KeyCode.Space);
+			isRunning = Input.GetKey(KeyCode.LeftShift);
+			isWalking = rb.velocity.sqrMagnitude > 1f;
 
 			//Force - Walk
 			Vector3 force = new Vector3(0, 0, 0);
 			force.x = a ? -1 : (d ? 1 : 0);
 			force.z = w ? 1 : (s ? -1 : 0);
 
-			rb.AddForce((camControls.pivotYAxis.forward * force.z + camControls.pivotYAxis.right * force.x) * walkSpeed * dt, ForceMode.VelocityChange);
+			float walkMultiplier = walkSpeed * (isRunning ? 1f : 0.5f);
+
+			rb.AddForce((camControls.pivotYAxis.forward * force.z + camControls.pivotYAxis.right * force.x) * walkMultiplier * dt, ForceMode.VelocityChange);
 
 			//Force - Jump
 			if (space)

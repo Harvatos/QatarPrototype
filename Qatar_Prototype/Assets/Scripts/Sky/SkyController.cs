@@ -110,8 +110,8 @@ public class SkyController : MonoBehaviour
 		}
 
 		//Smooth Rotation
-		skyDayTransform.rotation = Quaternion.Lerp(skyDayTransform.rotation, skyRotationTarget.rotation, dt);
-		skyNightTransform.rotation = Quaternion.Lerp(skyNightTransform.rotation, skyRotationTarget.rotation, dt);
+		skyDayTransform.rotation = Quaternion.Lerp(skyDayTransform.rotation, skyRotationTarget.rotation, dt * 3);
+		skyNightTransform.rotation = Quaternion.Lerp(skyNightTransform.rotation, skyRotationTarget.rotation, dt * 3);
 	}
 
 	//Get the difference of the targetRotation and the current rotation
@@ -146,6 +146,9 @@ public class SkyController : MonoBehaviour
 		//Snap Rotation
 		if (hasControls)
 			skyRotationTarget.rotation = skyDayTransform.rotation;
+
+		//Player Animation
+		CharacterAnimation.instance.SendAstrolabeTrigger(hasControls);
 
 		//Other Stuff
 		canvas.UpdateAstrolabeText(hasControls);
