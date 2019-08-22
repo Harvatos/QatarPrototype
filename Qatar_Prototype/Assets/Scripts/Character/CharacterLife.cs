@@ -11,28 +11,43 @@ public class CharacterLife : MonoBehaviour
 
 	private Volume heatStrokeVolume;
 	private TextMeshProUGUI lifeIndicator;
-
+	private SkyController skyController;
 	private SunDetector sd;
 	private float HP = 100;
 
 	private void Start()
 	{
+		skyController = SkyController.instance;
 		sd = GetComponent<SunDetector>();
-		heatStrokeVolume = CameraSingleton.instance.GetComponent<Volume>();
+		heatStrokeVolume = CameraSingleton.instance.transform.GetChild(0).GetComponent<Volume>();
 		lifeIndicator = CanvasController.instance.lifeTextRef;
 	}
 
 	private void Update()
 	{
-		if (sd.isInSunLight())
-			HP -= Time.deltaTime * sunlightDamagePerSecond;
+		//night
+		if (!skyController.isDay)
+		{
+			HP = 100;
+		}
 
+		//day
 		else
-			HP += Time.deltaTime * shadowRegenPerSecond;
+		{
+			//Sunlight
+			if (sd.isInSunLight())
+				HP -= Time.deltaTime * sunlightDamagePerSecond;
 
+			//Shadow
+			else
+				HP += Time.deltaTime * shadowRegenPerSecond;
+		}
+
+		//Clamp
 		HP = Mathf.Clamp(HP, 0, 100);
 
-		heatStrokeVolume.weight = HP / 100f;
+		//Indicator
+		heatStrokeVolume.weight = (100f - HP) / 100f;
 		lifeIndicator.text = Mathf.Round(HP).ToString() + "HP";
 	}
 }

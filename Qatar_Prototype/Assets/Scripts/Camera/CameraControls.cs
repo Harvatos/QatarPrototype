@@ -27,13 +27,14 @@ public class CameraControls : MonoBehaviour
 	private Quaternion rotTarget;
 	private float rotX = 0;
 	private float rotY = 0;
+	private Vector3 vel = Vector3.zero;
 
 	private void Start()
 	{
 		targetTransform = PlayerSingleton.instance.transform;
 	}
 
-	private void Update()
+	private void LateUpdate()
 	{
 		float dt = Time.deltaTime;
 
@@ -47,6 +48,7 @@ public class CameraControls : MonoBehaviour
 
 		//Smooth Transition
 		transform.position = Vector3.Lerp(transform.position, targetTransform.position, positionSmooth * dt);
+		//transform.position = Vector3.SmoothDamp(transform.position, targetTransform.position, ref vel, positionSmooth * dt);
 
 		//Smooth Rotation
 		//pivotYAxis.localRotation = Quaternion.Lerp(pivotYAxis.localRotation, Quaternion.Euler(0, rotY, 0), dt * rotationSmooth);
@@ -67,6 +69,6 @@ public class CameraControls : MonoBehaviour
 		}
 
 		Vector3 targetOffset = new Vector3(offSetX, 0, offSetZ);
-		camTransform.localPosition = targetOffset;// Vector3.Lerp(camTransform.localPosition, targetOffset, dt * 2);
+		camTransform.localPosition = targetOffset;
 	}
 }
