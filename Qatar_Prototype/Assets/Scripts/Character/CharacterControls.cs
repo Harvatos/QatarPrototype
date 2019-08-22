@@ -24,6 +24,7 @@ public class CharacterControls : MonoBehaviour
 	private bool hasJumpedOnce = false;
 	private float additionalGravity = 0;
 	private float longJumpMultiplier = 1;
+	private bool isControllingSky = false;
 
 	private void Start()
 	{
@@ -34,46 +35,49 @@ public class CharacterControls : MonoBehaviour
 	private void Update()
 	{
 		float dt = Time.deltaTime;
-
-		//Get Inputs
-		bool w = Input.GetKey(KeyCode.W);
-		bool a = Input.GetKey(KeyCode.A);
-		bool s = Input.GetKey(KeyCode.S);
-		bool d = Input.GetKey(KeyCode.D);
-		bool space = Input.GetKey(KeyCode.Space);
-		bool spaceUp = Input.GetKeyUp(KeyCode.Space);
-
-		//Force - Walk
-		Vector3 force = new Vector3(0, 0, 0);
-		force.x = a ? -1 : (d ? 1 : 0);
-		force.z = w ? 1 : (s ? -1 : 0);
-
-		rb.AddForce((camControls.pivotYAxis.forward * force.z + camControls.pivotYAxis.right * force.x) * walkSpeed * dt, ForceMode.VelocityChange);
-
-		//Force - Jump
-		if (space)
-		{
-			rb.AddForce(Vector3.up * jumpForce * longJumpMultiplier * dt, ForceMode.VelocityChange);
-			hasJumpedOnce = true;
-		}
-
-		if(hasJumpedOnce && longJumpMultiplier > 0)
-		{ 
-			longJumpMultiplier -= dt * 7.5f;
-			if (longJumpMultiplier < 0)
-				longJumpMultiplier = 0;
-
-			if (spaceUp)
-				longJumpMultiplier = 0;
-		}
 		
 		//Ground
 		UpdateGround(dt);
 
-		//Rotate toward camera angle
-		if (a || s || d || w)
+		if (!isControllingSky)
 		{
-			RotatePlayer(dt);
+			//Get Inputs
+			bool w = Input.GetKey(KeyCode.W);
+			bool a = Input.GetKey(KeyCode.A);
+			bool s = Input.GetKey(KeyCode.S);
+			bool d = Input.GetKey(KeyCode.D);
+			bool space = Input.GetKey(KeyCode.Space);
+			bool spaceUp = Input.GetKeyUp(KeyCode.Space);
+
+			//Force - Walk
+			Vector3 force = new Vector3(0, 0, 0);
+			force.x = a ? -1 : (d ? 1 : 0);
+			force.z = w ? 1 : (s ? -1 : 0);
+
+			rb.AddForce((camControls.pivotYAxis.forward * force.z + camControls.pivotYAxis.right * force.x) * walkSpeed * dt, ForceMode.VelocityChange);
+
+			//Force - Jump
+			if (space)
+			{
+				rb.AddForce(Vector3.up * jumpForce * longJumpMultiplier * dt, ForceMode.VelocityChange);
+				hasJumpedOnce = true;
+			}
+
+			if (hasJumpedOnce && longJumpMultiplier > 0)
+			{
+				longJumpMultiplier -= dt * 7.5f;
+				if (longJumpMultiplier < 0)
+					longJumpMultiplier = 0;
+
+				if (spaceUp)
+					longJumpMultiplier = 0;
+			}
+
+			//Rotate toward camera angle
+			if (a || s || d || w)
+			{
+				RotatePlayer(dt);
+			}
 		}
 	}
 
@@ -125,5 +129,10 @@ public class CharacterControls : MonoBehaviour
 
 		//Rotate towards camera
 		//transform.rotation = camControls.pivotYAxis.rotation; //Quaternion.Lerp(transform.rotation, camControls.pivotYAxis.rotation, dt * rotationSpeed);
+	}
+
+	public void SetPlayerControls(bool hasSkyControls)
+	{
+		isControllingSky = hasSkyControls;
 	}
 }

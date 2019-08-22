@@ -29,19 +29,28 @@ public class SkyController : MonoBehaviour
 	public bool isDay { get; private set; }
 	private bool skyControlsActivated = false;
 	private Transform playerTransform;
+	private CharacterControls playerControls;
+	private float cantControlSkyTimer = 0;
+	private CanvasController canvas;
 
 	private void Start()
 	{
 		SetDayCycle(true);
 		playerTransform = PlayerSingleton.instance.transform;
+		playerControls = playerTransform.GetComponent<CharacterControls>();
+		canvas = CanvasController.instance;
 	}
 
 	private void Update()
 	{
 		float dt = Time.deltaTime;
 
+		//Timers
+		if (cantControlSkyTimer > 0)
+			cantControlSkyTimer -= dt;
+
 		//Activate sky controls
-		if (Input.GetKeyDown(KeyCode.Keypad5))
+		if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Q))
 		{
 			SetSkyControls(!skyControlsActivated);
 		}
@@ -74,25 +83,23 @@ public class SkyController : MonoBehaviour
 
 	private void RotateSky(float dt)
 	{
-		//Return if not in control
-		if (!skyControlsActivated)
-			return;
-
 		//Get input
-		float skyHorizontalRot = Input.GetKey(KeyCode.Keypad4) ? -rotationSpeed : (Input.GetKey(KeyCode.Keypad6) ? rotationSpeed : 0);
-		float skyVerticalRot= Input.GetKey(KeyCode.Keypad2) ? -rotationSpeed : (Input.GetKey(KeyCode.Keypad8) ? rotationSpeed : 0);
+		if (skyControlsActivated)
+		{
+			float skyHorizontalRot = Input.GetKey(KeyCode.Keypad4) || Input.GetKey(KeyCode.A) ? -rotationSpeed : (Input.GetKey(KeyCode.Keypad6) || Input.GetKey(KeyCode.D) ? rotationSpeed : 0);
+			float skyVerticalRot = Input.GetKey(KeyCode.Keypad2) ? -rotationSpeed : (Input.GetKey(KeyCode.Keypad8) ? rotationSpeed : 0);
 
-		//Rotate Sky Target
+			//Rotate Sky Target
+			/*
+			Quaternion rotLocal = skyRotationTarget.localRotation;
+			rotLocal.eulerAngles += new Vector3(skyVerticalRot * dt, 0, 0);
+			skyRotationTarget.localRotation = rotLocal;
+			*/
 
-		/*
-		Quaternion rotLocal = skyRotationTarget.localRotation;
-		rotLocal.eulerAngles += new Vector3(skyVerticalRot * dt, 0, 0);
-		skyRotationTarget.localRotation = rotLocal;
-		*/
-
-		Quaternion rotGlobal = skyRotationTarget.rotation;
-		rotGlobal.eulerAngles += new Vector3(0, skyHorizontalRot * dt, 0);
-		skyRotationTarget.rotation = rotGlobal;
+			Quaternion rotGlobal = skyRotationTarget.rotation;
+			rotGlobal.eulerAngles += new Vector3(0, skyHorizontalRot * dt, 0);
+			skyRotationTarget.rotation = rotGlobal;
+		}
 
 		//Smooth Rotation
 		skyDayTransform.rotation = Quaternion.Lerp(skyDayTransform.rotation, skyRotationTarget.rotation, dt);
@@ -108,7 +115,20 @@ public class SkyController : MonoBehaviour
 	//Set sky controls
 	public void SetSkyControls(bool hasControls)
 	{
-		skyRotationTarget.rotation = skyDayTransform.rotation;
+		if (cantControlSkyTimer > 0)
+			return;
+
+		if(hasControls)
+			skyRotationTarget.rotation = skyDayTransform.rotation;
+
+		canvas.UpdateAstrolabeText(hasControls);
 		skyControlsActivated = hasControls;
+		playerControls.SetPlayerControls(hasControls);
+	}
+
+	//Set time of no controls
+	public void DisableSkyControlForAWhile(float cooldown)
+	{
+		cantControlSkyTimer = cooldown;
 	}
 }

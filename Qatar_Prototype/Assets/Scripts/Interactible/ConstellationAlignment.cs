@@ -79,8 +79,8 @@ public class ConstellationAlignment : MonoBehaviour
 			print("OK: 6");
 
 		//Must look at constellation
-		Vector3 viewport = cam.WorldToViewportPoint(transform.position);
-		if (viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1)
+		Vector3 viewport = cam.WorldToViewportPoint(pointOfInterest.position);
+		if (viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1 || viewport.z < 0)
 			return;
 
 		if (debug)
@@ -94,6 +94,7 @@ public class ConstellationAlignment : MonoBehaviour
 	{
 		isCompleted = true;
 		skyController.SetSkyControls(false);
+		skyController.DisableSkyControlForAWhile(3);
 		skyController.skyRotationTarget.eulerAngles = new Vector3(0, skyAngleY, 0);
 		constellationRef.Shine();
 
