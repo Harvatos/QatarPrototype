@@ -46,13 +46,19 @@ public class SkyController : MonoBehaviour
 	{
 		float dt = Time.deltaTime;
 
+		//Rotate Sky
+		RotateSky(dt);
+
 		//Timers
 		if (cantControlSkyTimer > 0)
 		{
 			cantControlSkyTimer -= dt;
 
 			if (cantControlSkyTimer <= 0)
+			{
+				cantControlSkyTimer = 0;
 				SetSkyControls(false);
+			}
 
 			return;
 		}
@@ -66,9 +72,6 @@ public class SkyController : MonoBehaviour
 		//Toggle Day/Night
 		if (Input.GetKeyDown(KeyCode.Keypad7))
 			ToggleDayCycle();
-
-		//Rotate Sky
-		RotateSky(dt);
 
 		//Follow Player
 		transform.position = playerTransform.position;
@@ -92,7 +95,7 @@ public class SkyController : MonoBehaviour
 	private void RotateSky(float dt)
 	{
 		//Get input
-		if (skyControlsActivated)
+		if (cantControlSkyTimer == 0 && skyControlsActivated)
 		{
 			float skyHorizontalRot = Input.GetKey(KeyCode.Keypad4) || Input.GetKey(KeyCode.A) ? -rotationSpeed : (Input.GetKey(KeyCode.Keypad6) || Input.GetKey(KeyCode.D) ? rotationSpeed : 0);
 			float skyVerticalRot = Input.GetKey(KeyCode.Keypad2) ? -rotationSpeed : (Input.GetKey(KeyCode.Keypad8) ? rotationSpeed : 0);
@@ -135,7 +138,7 @@ public class SkyController : MonoBehaviour
 				cc.AddCamTarget(lastConstellationAlignment.camTarget);
 				Vector3 lookAt = lastConstellationAlignment.pointOfInterest.position;
 				lookAt.y = 0;
-				playerControls.RotatePlayer(lookAt.normalized, 1);
+				playerControls.RotatePlayer(lookAt, 1);
 			}
 			else
 			{
