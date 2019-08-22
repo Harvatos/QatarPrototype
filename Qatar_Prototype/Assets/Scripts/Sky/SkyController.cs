@@ -28,7 +28,7 @@ public class SkyController : MonoBehaviour
 	[HideInInspector] public ConstellationAlignment lastConstellationAlignment;
 
 	public bool isDay { get; private set; }
-	private bool skyControlsActivated = false;
+	public bool skyControlsActivated { get; private set; }
 	private Transform playerTransform;
 	private CharacterControls playerControls;
 	private float cantControlSkyTimer = 0;
