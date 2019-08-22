@@ -27,15 +27,18 @@ public class CameraControls : MonoBehaviour
 	private Quaternion rotTarget;
 	[HideInInspector] public float rotX = 0;
 	[HideInInspector] public float rotY = 0;
+	[HideInInspector] public bool camIsLocked = false;
 	private Vector3 vel = Vector3.zero;
 	private bool isAligningConstellation = false;
 	private Quaternion camInitLocalRot;
 	private float camInitFOV;
 	private Camera targetCam;
 	private Camera cam;
+	
 
 	private void Start()
 	{
+		Cursor.lockState = CursorLockMode.Locked;
 		targetTransform = PlayerSingleton.instance.transform;
 		cam = camTransform.GetComponent<Camera>();
 		camInitLocalRot = camTransform.localRotation;
@@ -44,6 +47,8 @@ public class CameraControls : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		if (camIsLocked)
+			return;
 
 		float dt = Time.deltaTime;
 

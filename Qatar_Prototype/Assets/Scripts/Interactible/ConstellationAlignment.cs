@@ -58,6 +58,13 @@ public class ConstellationAlignment : MonoBehaviour
 		if (debug)
 			print("OK: 3");
 
+		//Must be sky controlling
+		if (!skyController.skyControlsActivated)
+			return;
+
+		if (debug)
+			print("OK: 3.5");
+
 		//Player Must Be in zone
 		if (!IsPlayerInRadius())
 			return;
