@@ -20,6 +20,7 @@ public class CanvasController : MonoBehaviour
 	public Image interactibleIconRef;
 	public Image interactibleBlurrySmudge;
 	public Animator whiteScreenAnim;
+	public Animator blackScreenAnim;
 
 	private bool interactibleIsVisible = false;
 
