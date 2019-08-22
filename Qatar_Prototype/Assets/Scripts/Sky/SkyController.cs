@@ -147,6 +147,9 @@ public class SkyController : MonoBehaviour
 		if (hasControls)
 			skyRotationTarget.rotation = skyDayTransform.rotation;
 
+		//Player Animation
+		CharacterAnimation.instance.SendAstrolabeTrigger(hasControls);
+
 		//Other Stuff
 		canvas.UpdateAstrolabeText(hasControls);
 		skyControlsActivated = hasControls;
