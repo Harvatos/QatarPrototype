@@ -48,7 +48,7 @@ public class CharacterControls : MonoBehaviour
 		force.x = a ? -1 : (d ? 1 : 0);
 		force.z = w ? 1 : (s ? -1 : 0);
 
-		rb.AddForce((transform.forward * force.z + transform.right * force.x) * walkSpeed * dt, ForceMode.VelocityChange);
+		rb.AddForce((camControls.pivotYAxis.forward * force.z + camControls.pivotYAxis.right * force.x) * walkSpeed * dt, ForceMode.VelocityChange);
 
 		//Force - Jump
 		if (space)
@@ -120,6 +120,10 @@ public class CharacterControls : MonoBehaviour
 
 	public void RotatePlayer(float dt)
 	{
-		transform.rotation = camControls.pivotYAxis.rotation; //Quaternion.Lerp(transform.rotation, camControls.pivotYAxis.rotation, dt * rotationSpeed);
+		//Rotate towards Velocity
+		transform.rotation = Quaternion.LookRotation(new Vector3(rb.velocity.x, 0, rb.velocity.z).normalized, Vector3.up);
+
+		//Rotate towards camera
+		//transform.rotation = camControls.pivotYAxis.rotation; //Quaternion.Lerp(transform.rotation, camControls.pivotYAxis.rotation, dt * rotationSpeed);
 	}
 }
