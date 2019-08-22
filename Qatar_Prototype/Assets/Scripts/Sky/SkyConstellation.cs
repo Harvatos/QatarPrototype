@@ -55,10 +55,12 @@ public class SkyConstellation : MonoBehaviour
 		{
 			drawingTimer -= Time.deltaTime / 3f;
 			
-			for(int i=0; i<drawingRenderers.Length;i++)
+			for(int i=0; i<drawingRenderers.Length; i++)
 			{
 				Renderer r = drawingRenderers[i];
-				r.material.SetColor("_BaseColor", new Color(0, 0, 0, 1 - (Mathf.Pow(drawingTimer/ 3f, i == 0? 0.1f : 1f))));
+				float a = 1 - (drawingTimer / 3f);
+				a = Mathf.Clamp(a, 0, 1);
+				r.material.SetColor("_BaseColor", new Color(1, 1, 1, a));
 			}
 		}
 	}
