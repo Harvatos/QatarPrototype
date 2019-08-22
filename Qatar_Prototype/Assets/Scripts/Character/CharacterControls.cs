@@ -76,7 +76,7 @@ public class CharacterControls : MonoBehaviour
 			//Rotate toward camera angle
 			if (a || s || d || w)
 			{
-				RotatePlayer(dt);
+				RotatePlayer(new Vector3(rb.velocity.x, 0, rb.velocity.z).normalized, dt);
 			}
 		}
 	}
@@ -122,10 +122,10 @@ public class CharacterControls : MonoBehaviour
 		*/
 	}
 
-	public void RotatePlayer(float dt)
+	public void RotatePlayer(Vector3 lookVector, float dt)
 	{
 		//Rotate towards Velocity
-		transform.rotation = Quaternion.LookRotation(new Vector3(rb.velocity.x, 0, rb.velocity.z).normalized, Vector3.up);
+		transform.rotation = Quaternion.LookRotation(lookVector, Vector3.up);
 
 		//Rotate towards camera
 		//transform.rotation = camControls.pivotYAxis.rotation; //Quaternion.Lerp(transform.rotation, camControls.pivotYAxis.rotation, dt * rotationSpeed);

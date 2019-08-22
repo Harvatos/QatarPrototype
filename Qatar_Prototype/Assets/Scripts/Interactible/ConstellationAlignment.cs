@@ -8,6 +8,7 @@ public class ConstellationAlignment : MonoBehaviour
 	[Header("Reference")]
 	public SkyConstellation constellationRef;
 	public Transform pointOfInterest;
+	public Camera camTarget;
 
 	[Header("Requirements")]
 	public float positionRadius = 2f;
@@ -58,8 +59,13 @@ public class ConstellationAlignment : MonoBehaviour
 			print("OK: 3");
 
 		//Player Must Be in zone
-		if (Vector3.Distance(transform.position, playerTransform.position) > positionRadius)
+		if (!IsPlayerInRadius())
 			return;
+
+		if (skyController.lastConstellationAlignment != this)
+		{
+			skyController.lastConstellationAlignment = this;
+		}
 
 		if (debug)
 			print("OK: 4");
@@ -93,7 +99,6 @@ public class ConstellationAlignment : MonoBehaviour
 	private void Alignment()
 	{
 		isCompleted = true;
-		skyController.SetSkyControls(false);
 		skyController.DisableSkyControlForAWhile(3);
 		skyController.skyRotationTarget.eulerAngles = new Vector3(0, skyAngleY, 0);
 		constellationRef.Shine();
@@ -106,5 +111,10 @@ public class ConstellationAlignment : MonoBehaviour
 	{
 		Gizmos.color = new Color(0f, 1f, 0.5f, 0.1f);
 		Gizmos.DrawSphere(transform.position, positionRadius);
+	}
+
+	public bool IsPlayerInRadius()
+	{
+		return Vector3.Distance(transform.position, playerTransform.position) <= positionRadius;
 	}
 }
