@@ -48,7 +48,7 @@ MonoBehaviour:
   pivotYAxis: {fileID: 4973372552938011478}
   pivotXAxis: {fileID: 7986848096502854736}
   camTransform: {fileID: 9122830392377725109}
-  camOffsetZ: -8
+  camOffsetZ: -5
   camOffsetX: 3
   camStuckOnLayers:
     serializedVersion: 2
@@ -58,6 +58,8 @@ MonoBehaviour:
   rotationSmooth: 1.5
   rotYMin: -20
   rotYMax: 60
+  rotX: 0
+  rotY: 0
 --- !u!54 &1595753795
 Rigidbody:
   m_ObjectHideFlags: 0
