@@ -15,8 +15,10 @@ public class CanvasController : MonoBehaviour
 
 	public TextMeshProUGUI lifeTextRef;
 	public TextMeshProUGUI skyAngleTextRef;
+	public TextMeshProUGUI useAstrolabeTextRef;
 	public TextMeshProUGUI interactibleTextRef;
 	public Image interactibleIconRef;
+	public Image interactibleBlurrySmudge;
 
 	private bool interactibleIsVisible = false;
 
@@ -34,6 +36,7 @@ public class CanvasController : MonoBehaviour
 
 		interactibleIconRef.color = c;
 		interactibleTextRef.color = c;
+		interactibleBlurrySmudge.color = new Color(0,0,0,c.a);
 	}
 
 	//Display the tooltip of an interactible
@@ -48,5 +51,11 @@ public class CanvasController : MonoBehaviour
 	public void HideInteractible()
 	{
 		interactibleIsVisible = false;
+	}
+
+	//Display Use Astrolabe Text
+	public void UpdateAstrolabeText(bool isUsingIt)
+	{
+		useAstrolabeTextRef.text = isUsingIt ? "Stop Using Astrolabe" : "Use Astrolabe";
 	}
 }
