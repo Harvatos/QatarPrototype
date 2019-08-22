@@ -46,6 +46,7 @@ public class SkyConstellation : MonoBehaviour
 			AddStar();
 		}
 
+		//Draw Aquila
 		if(drawingIsVisible && drawingTimer > 0)
 		{
 			drawingTimer -= Time.deltaTime / 3f;
@@ -101,9 +102,15 @@ public class SkyConstellation : MonoBehaviour
 
 				//Display Drawing on last line
 				if (index == additionalStars.Length - 1)
-					drawingIsVisible = true;
+					StartCoroutine( ShowDrawing() );
 			}
 		}
+	}
+
+	IEnumerator ShowDrawing()
+	{
+		yield return new WaitForSeconds(3);
+		drawingIsVisible = true;
 	}
 
 	//Make that DING when the constellation is alligned
