@@ -19,6 +19,7 @@ public class CanvasController : MonoBehaviour
 	public TextMeshProUGUI interactibleTextRef;
 	public Image interactibleIconRef;
 	public Image interactibleBlurrySmudge;
+	public Animator whiteScreenAnim;
 
 	private bool interactibleIsVisible = false;
 
