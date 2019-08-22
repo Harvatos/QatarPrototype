@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Bits: 311
   mouseSensitivity: 200
   positionSmooth: 5
-  rotationSmooth: 10
+  rotationSmooth: 1.5
   rotYMin: -20
   rotYMax: 60
 --- !u!54 &1595753795
