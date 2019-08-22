@@ -99,7 +99,7 @@ public class ConstellationAlignment : MonoBehaviour
 	private void Alignment()
 	{
 		isCompleted = true;
-		skyController.DisableSkyControlForAWhile(3);
+		skyController.DisableSkyControlForAWhile(5f);
 		skyController.skyRotationTarget.eulerAngles = new Vector3(0, skyAngleY, 0);
 		constellationRef.Shine();
 
