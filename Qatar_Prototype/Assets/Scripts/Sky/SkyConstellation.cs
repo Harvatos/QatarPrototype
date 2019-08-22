@@ -11,12 +11,16 @@ public class SkyConstellation : MonoBehaviour
 	public Line[] lines;
 	public VisualEffect ShineVFX;
 	public Renderer[] drawingRenderers;
+	public Camera cameraTarget;
 	
 	public int index = 0;
 
 	private List<GameObject> tracedLines = new List<GameObject>();
 	private bool drawingIsVisible;
 	private float drawingTimer = 3;
+	private Vector3 gameplayCamPosition;
+	private Quaternion gameplayCamRotation;
+	private float gameplayCamFOV;
 
 	private void Start()
 	{
@@ -51,9 +55,10 @@ public class SkyConstellation : MonoBehaviour
 		{
 			drawingTimer -= Time.deltaTime / 3f;
 			
-			foreach (Renderer r in drawingRenderers)
+			for(int i=0; i<drawingRenderers.Length;i++)
 			{
-				r.material.SetColor("_BaseColor", new Color(0, 0, 0, 1 - (drawingTimer/ 3f)));
+				Renderer r = drawingRenderers[i];
+				r.material.SetColor("_BaseColor", new Color(0, 0, 0, 1 - (Mathf.Pow(drawingTimer/ 3f, i == 0? 0.1f : 1f))));
 			}
 		}
 	}
@@ -100,8 +105,12 @@ public class SkyConstellation : MonoBehaviour
 				//Add in list
 				tracedLines.Add(line);
 
+				//Cam Closeup
+				bool lastStar = index == additionalStars.Length - 1;
+				CinematicLookAtConstellation(lastStar ? 6 : 3);
+
 				//Display Drawing on last line
-				if (index == additionalStars.Length - 1)
+				if (lastStar)
 					StartCoroutine( ShowDrawing() );
 			}
 		}
@@ -109,7 +118,7 @@ public class SkyConstellation : MonoBehaviour
 
 	IEnumerator ShowDrawing()
 	{
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(2);
 		drawingIsVisible = true;
 	}
 
@@ -139,6 +148,34 @@ public class SkyConstellation : MonoBehaviour
 
 	}
 
+	//called when a star is liberated
+	public void CinematicLookAtConstellation(float time)
+	{
+		//Store data
+		Camera cam = CameraSingleton.instance.GetComponent<Camera>();
+		gameplayCamPosition = cam.transform.position;
+		gameplayCamRotation = cam.transform.rotation;
+		gameplayCamFOV = cam.fieldOfView;
+
+		//Move Cam
+		cam.transform.position = cameraTarget.transform.position;
+		cam.transform.rotation = cameraTarget.transform.rotation;
+		cam.fieldOfView = cameraTarget.fieldOfView;
+		cam.GetComponentInParent<CameraControls>().camIsLocked = true;
+
+		//Reset Cam
+		StartCoroutine( PlaceCamBack(cam, time) );
+	}
+
+	IEnumerator PlaceCamBack(Camera cam, float time)
+	{
+		yield return new WaitForSeconds(time);
+		//cam.transform.position = gameplayCamPosition;
+		//cam.transform.rotation = gameplayCamRotation;
+		//cam.fieldOfView = gameplayCamFOV;
+		cam.GetComponentInParent<CameraControls>().camIsLocked = false;
+
+	}
 }
 
 
