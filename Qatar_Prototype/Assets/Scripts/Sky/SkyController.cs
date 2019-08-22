@@ -110,8 +110,8 @@ public class SkyController : MonoBehaviour
 		}
 
 		//Smooth Rotation
-		skyDayTransform.rotation = Quaternion.Lerp(skyDayTransform.rotation, skyRotationTarget.rotation, dt);
-		skyNightTransform.rotation = Quaternion.Lerp(skyNightTransform.rotation, skyRotationTarget.rotation, dt);
+		skyDayTransform.rotation = Quaternion.Lerp(skyDayTransform.rotation, skyRotationTarget.rotation, dt * 3);
+		skyNightTransform.rotation = Quaternion.Lerp(skyNightTransform.rotation, skyRotationTarget.rotation, dt * 3);
 	}
 
 	//Get the difference of the targetRotation and the current rotation

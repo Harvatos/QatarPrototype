@@ -10,10 +10,13 @@ public class SkyConstellation : MonoBehaviour
 	public GameObject[] additionalStars;
 	public Line[] lines;
 	public VisualEffect ShineVFX;
+	public Renderer[] drawingRenderers;
 	
 	public int index = 0;
 
 	private List<GameObject> tracedLines = new List<GameObject>();
+	private bool drawingIsVisible;
+	private float drawingTimer = 3;
 
 	private void Start()
 	{
@@ -28,6 +31,12 @@ public class SkyConstellation : MonoBehaviour
 		{
 			TraceLine(lines[i]);
 		}
+
+		//Hide Drawing
+		foreach(Renderer r in drawingRenderers)
+		{
+			r.material.SetColor("_BaseColor", new Color(0,0,0,0));
+		}
 	}
 
 	private void Update()
@@ -35,6 +44,16 @@ public class SkyConstellation : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.C))
 		{
 			AddStar();
+		}
+
+		if(drawingIsVisible && drawingTimer > 0)
+		{
+			drawingTimer -= Time.deltaTime / 3f;
+			
+			foreach (Renderer r in drawingRenderers)
+			{
+				r.material.SetColor("_BaseColor", new Color(0, 0, 0, 1 - (drawingTimer/ 3f)));
+			}
 		}
 	}
 
@@ -79,6 +98,10 @@ public class SkyConstellation : MonoBehaviour
 
 				//Add in list
 				tracedLines.Add(line);
+
+				//Display Drawing on last line
+				if (index == additionalStars.Length - 1)
+					drawingIsVisible = true;
 			}
 		}
 	}
