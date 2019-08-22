@@ -25,18 +25,37 @@ public class CameraControls : MonoBehaviour
 
 	private Transform targetTransform;
 	private Quaternion rotTarget;
-	private float rotX = 0;
-	private float rotY = 0;
+	[HideInInspector] public float rotX = 0;
+	[HideInInspector] public float rotY = 0;
 	private Vector3 vel = Vector3.zero;
+	private bool isAligningConstellation = false;
+	private Quaternion camInitLocalRot;
+	private float camInitFOV;
+	private Camera targetCam;
+	private Camera cam;
 
 	private void Start()
 	{
 		targetTransform = PlayerSingleton.instance.transform;
+		cam = camTransform.GetComponent<Camera>();
+		camInitLocalRot = camTransform.localRotation;
+		camInitFOV = cam.fieldOfView;
 	}
 
 	private void LateUpdate()
 	{
+
 		float dt = Time.deltaTime;
+
+		//Moving to target camera on constellation alignment
+		if (isAligningConstellation)
+		{
+			float alignSmooth = 1.5f;
+			camTransform.position = Vector3.Lerp(camTransform.position, targetCam.transform.position, dt * alignSmooth);
+			camTransform.rotation = Quaternion.Lerp(camTransform.rotation, targetCam.transform.rotation, dt * alignSmooth);
+			cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetCam.fieldOfView, dt * alignSmooth);
+			return;
+		}
 
 		//Input Rotation
 		float mouseX = Input.GetAxis("Mouse X");
@@ -59,6 +78,7 @@ public class CameraControls : MonoBehaviour
 		//cam OffSet
 		float altitudeValue = ((rotY - rotYMin) / (rotYMax - rotYMin));
 		float offSetX = Mathf.Lerp(camTransform.localPosition.x, Mathf.Max(0, camOffsetX * (2 * (1f - altitudeValue) - 1.25f)), dt * 2);
+		float offSetY = Mathf.Lerp(camTransform.localPosition.y, 0, dt * 2);
 		float offSetZ = Mathf.Lerp(camTransform.localPosition.z, -2.5f + (altitudeValue * camOffsetZ), dt * 2);
 
 		RaycastHit hit = new RaycastHit();
@@ -68,7 +88,24 @@ public class CameraControls : MonoBehaviour
 			offSetZ = Mathf.Max(offSetZ, -hit.distance + 1f);
 		}
 
-		Vector3 targetOffset = new Vector3(offSetX, 0, offSetZ);
+		Vector3 targetOffset = new Vector3(offSetX, offSetY, offSetZ);
 		camTransform.localPosition = targetOffset;
+
+		//Go back to init
+		camTransform.localRotation = Quaternion.Lerp(camTransform.localRotation, camInitLocalRot, dt * rotationSmooth);
+		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, camInitFOV, dt * rotationSmooth);
+	}
+
+	//Add a cam target
+	public void AddCamTarget(Camera target)
+	{
+		isAligningConstellation = true;
+		targetCam = target;
+	}
+
+	//Stop Aligning
+	public void StopAligning()
+	{
+		isAligningConstellation = false;
 	}
 }

@@ -25,6 +25,7 @@ public class SkyController : MonoBehaviour
 
 	[Header("Values")]
 	public float rotationSpeed;
+	[HideInInspector] public ConstellationAlignment lastConstellationAlignment;
 
 	public bool isDay { get; private set; }
 	private bool skyControlsActivated = false;
@@ -47,7 +48,14 @@ public class SkyController : MonoBehaviour
 
 		//Timers
 		if (cantControlSkyTimer > 0)
+		{
 			cantControlSkyTimer -= dt;
+
+			if (cantControlSkyTimer <= 0)
+				SetSkyControls(false);
+
+			return;
+		}
 
 		//Activate sky controls
 		if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Q))
@@ -118,9 +126,28 @@ public class SkyController : MonoBehaviour
 		if (cantControlSkyTimer > 0)
 			return;
 
-		if(hasControls)
+		//Cam Target
+		if (lastConstellationAlignment != null)
+		{
+			CameraControls cc = CameraSingleton.instance.GetComponentInParent<CameraControls>();
+			if (lastConstellationAlignment.IsPlayerInRadius() && hasControls)
+			{
+				cc.AddCamTarget(lastConstellationAlignment.camTarget);
+				Vector3 lookAt = lastConstellationAlignment.pointOfInterest.position;
+				lookAt.y = 0;
+				playerControls.RotatePlayer(lookAt.normalized, 1);
+			}
+			else
+			{
+				cc.StopAligning();
+			}
+		}
+
+		//Snap Rotation
+		if (hasControls)
 			skyRotationTarget.rotation = skyDayTransform.rotation;
 
+		//Other Stuff
 		canvas.UpdateAstrolabeText(hasControls);
 		skyControlsActivated = hasControls;
 		playerControls.SetPlayerControls(hasControls);
