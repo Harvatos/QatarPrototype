@@ -6,6 +6,8 @@ public class StarPickup : MonoBehaviour
 {
 	public Animator[] anims;
 	public SkyConstellation constellation;
+	public GameObject prisonLightActive;
+	public GameObject prisonLightInactive;
 
 	public void ReleaseStar()
 	{
@@ -22,5 +24,7 @@ public class StarPickup : MonoBehaviour
 		yield return new WaitForSeconds(4.25f);
 
 		constellation.AddStar();
+		prisonLightActive.SetActive(false);
+		prisonLightInactive.SetActive(true);
 	}
 }
