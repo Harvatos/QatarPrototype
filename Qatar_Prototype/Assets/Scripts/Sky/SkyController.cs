@@ -17,6 +17,8 @@ public class SkyController : MonoBehaviour
 	public Transform skyDayTransform;
 	public Transform skyNightTransform;
 	public Transform dayLightTransform;
+	public GameObject dayVFX;
+	public GameObject nightVFX;
 
 	[Header("Post Processing")]
 	public Volume cameraVolume;
@@ -88,6 +90,9 @@ public class SkyController : MonoBehaviour
 
 		skyDayTransform.gameObject.SetActive(isDay);
 		skyNightTransform.gameObject.SetActive(!isDay);
+
+		if(dayVFX) { dayVFX.SetActive(isDay); }
+		if(nightVFX) { nightVFX.SetActive(!isDay); }
 
 		cameraVolume.profile = isDay ? profileDay : profileNight;
 	}

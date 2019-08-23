@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902345341971234161}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 194.81, y: 49.08, z: 346.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -108,7 +108,7 @@ VisualEffect:
       - m_Value: 1
         m_Name: Forward multiplier
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 1.3
         m_Name: Lifetime multiplier
         m_Overridden: 1
     m_Vector2f:
@@ -133,7 +133,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: Emit
+        m_Overridden: 1
 --- !u!73398921 &5369644641270667698
 VFXRenderer:
   m_ObjectHideFlags: 0
@@ -199,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5369644641346297409}
   m_LocalRotation: {x: 0, y: -0.6746245, z: 0, w: 0.73816115}
-  m_LocalPosition: {x: -1.38, y: -3.71, z: 0}
+  m_LocalPosition: {x: -1.38, y: -10.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5369644641829682971}
@@ -219,10 +222,10 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 4
+      - m_Value: 4.5
         m_Name: Forward multiplier
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 0.8
         m_Name: Lifetime multiplier
         m_Overridden: 1
     m_Vector2f:
@@ -316,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5369644641532261112}
   m_LocalRotation: {x: -0, y: -0.6746245, z: -0, w: 0.73816115}
-  m_LocalPosition: {x: 0.2400055, y: -14.540001, z: 1.6799927}
+  m_LocalPosition: {x: -0.88, y: -16.16, z: 2.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5369644641270667660}
@@ -364,7 +367,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: Emit
+        m_Overridden: 1
 --- !u!73398921 &5369644641532261114
 VFXRenderer:
   m_ObjectHideFlags: 0
@@ -455,7 +461,7 @@ VisualEffect:
       - m_Value: 1
         m_Name: Forward multiplier
         m_Overridden: 1
-      - m_Value: 0.5
+      - m_Value: 0.85
         m_Name: Lifetime multiplier
         m_Overridden: 1
     m_Vector2f:
@@ -549,7 +555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5369644642113381822}
   m_LocalRotation: {x: -0, y: 0.71733636, z: -0, w: 0.69672704}
-  m_LocalPosition: {x: 1, y: -14.540001, z: 1.7399902}
+  m_LocalPosition: {x: -0.09, y: -16.12, z: 2.350006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5369644641270667660}
@@ -597,7 +603,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: Emit
+        m_Overridden: 1
 --- !u!73398921 &5369644642113381816
 VFXRenderer:
   m_ObjectHideFlags: 0
@@ -663,7 +672,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5369644642395541312}
   m_LocalRotation: {x: 0, y: 0.30444863, z: 0, w: 0.95252883}
-  m_LocalPosition: {x: 2.67, y: -3.71, z: 0}
+  m_LocalPosition: {x: 2.67, y: -10.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5369644641829682971}
@@ -683,10 +692,10 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 4
+      - m_Value: 4.5
         m_Name: Forward multiplier
         m_Overridden: 1
-      - m_Value: 1
+      - m_Value: 0.8
         m_Name: Lifetime multiplier
         m_Overridden: 1
     m_Vector2f:

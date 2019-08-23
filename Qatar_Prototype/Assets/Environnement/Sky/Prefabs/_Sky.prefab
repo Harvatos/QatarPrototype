@@ -244,6 +244,8 @@ MonoBehaviour:
   skyDayTransform: {fileID: 4598939053827752993}
   skyNightTransform: {fileID: 3881054444903956080}
   dayLightTransform: {fileID: 2131004041}
+  dayVFX: {fileID: 0}
+  nightVFX: {fileID: 0}
   cameraVolume: {fileID: 0}
   profileDay: {fileID: 11400000, guid: 566d1f619de5ab0448d6570eaf4125a4, type: 2}
   profileNight: {fileID: 11400000, guid: 03086001c163db94dba61132afae625b, type: 2}
@@ -2378,6 +2380,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud Center Point (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 277773783459653543, guid: 9a781c286088cb641b16587e94faa694,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6182986553896659332, guid: 9a781c286088cb641b16587e94faa694,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2734,6 +2741,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud Center Point (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 277773783459653543, guid: 9a781c286088cb641b16587e94faa694,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6182986553896659332, guid: 9a781c286088cb641b16587e94faa694,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2969,6 +2981,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud Center Point (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 277773783459653543, guid: 9a781c286088cb641b16587e94faa694,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6182986553896659332, guid: 9a781c286088cb641b16587e94faa694,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3103,6 +3120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cloud Center Point (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 277773783459653543, guid: 9a781c286088cb641b16587e94faa694,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6182986553896659332, guid: 9a781c286088cb641b16587e94faa694,
         type: 3}
@@ -3437,6 +3459,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cloud Center Point
       objectReference: {fileID: 0}
+    - target: {fileID: 277773783459653543, guid: 9a781c286088cb641b16587e94faa694,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6182986553896659332, guid: 9a781c286088cb641b16587e94faa694,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3642,6 +3669,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cloud Center Point (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 277773783459653543, guid: 9a781c286088cb641b16587e94faa694,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6182986553896659332, guid: 9a781c286088cb641b16587e94faa694,
         type: 3}
