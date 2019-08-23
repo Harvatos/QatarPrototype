@@ -12,15 +12,20 @@ public class DoorDissolve : MonoBehaviour
 	private void Start()
 	{
 		m = GetComponent<Renderer>().material;
-		timer = 1f;
+		timer = 0f;
 	}
 
 	private void Update()
 	{
 		if(dissolve && (timer >= 0))
 		{
-			timer -= Time.deltaTime;
+			timer += Time.deltaTime;
 			m.SetFloat("_AlphaClip", timer);
 		}
+	}
+
+	public void StartDissolve()
+	{
+		dissolve = true;
 	}
 }
