@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3100353014225336241}
   - component: {fileID: 9117896940091250762}
+  - component: {fileID: 3822051780594386540}
   m_Layer: 0
   m_Name: Sandfall
   m_TagString: Untagged
@@ -57,6 +58,20 @@ MonoBehaviour:
   - {fileID: 5369644642395541341}
   - {fileID: 5369644641346297410}
   blockedSecondaryDelay: 1
+  col: {fileID: 3822051780594386540}
+--- !u!65 &3822051780594386540
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902345341971234161}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9, y: 10, z: 3}
+  m_Center: {x: -0.71, y: -15.21, z: 1.97}
 --- !u!1 &5369644641270667699
 GameObject:
   m_ObjectHideFlags: 0
