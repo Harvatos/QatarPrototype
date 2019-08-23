@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sunlightDamagePerSecond: 10
   shadowRegenPerSecond: 30
+  lastCheckpoint: {fileID: 0}
 --- !u!114 &2051266541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bca8440f90fd146a6826fc72770340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 3182224438826155699}
+  anim: {fileID: 7882875787534800624}
   charControls: {fileID: 2051266544}
 --- !u!136 &4000655828929451307
 CapsuleCollider:
@@ -1177,9 +1178,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aca6b99f3694d2c46b54ebbfac84de21, type: 3}
---- !u!95 &3182224438826155699 stripped
+--- !u!95 &7882875787534800624 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 5603118902317703369, guid: aca6b99f3694d2c46b54ebbfac84de21,
+  m_CorrespondingSourceObject: {fileID: 904756728152377482, guid: aca6b99f3694d2c46b54ebbfac84de21,
     type: 3}
   m_PrefabInstance: {fileID: 7055960497205599866}
   m_PrefabAsset: {fileID: 0}
