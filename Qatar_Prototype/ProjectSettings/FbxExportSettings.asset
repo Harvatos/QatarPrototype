@@ -9,12 +9,20 @@
         "HideSendToUnityMenu": true,
         "BakeAnimation": true,
         "showConvertToPrefabDialog": true,
+<<<<<<< HEAD
         "integrationSavePath": "C:\\Users\\Astrolabe\\Desktop\\Unity\\Qatar\\QatarPrototype\\Qatar_Prototype",
+=======
+        "integrationSavePath": "C:\\Users\\Propriétaire\\Desktop\\Qatar\\QatarPrototype\\Qatar_Prototype",
+>>>>>>> master
         "selectedDCCApp": 0,
         "prefabSavePaths": [
             "."
         ],
         "fbxSavePaths": [
+<<<<<<< HEAD
+=======
+            "Nouveau dossier",
+>>>>>>> master
             "."
         ],
         "selectedFbxPath": 0,
