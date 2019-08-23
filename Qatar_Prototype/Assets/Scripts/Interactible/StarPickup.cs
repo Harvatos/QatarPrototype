@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.VFX;
 
 public class StarPickup : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class StarPickup : MonoBehaviour
 	public SkyConstellation constellation;
 	public GameObject prisonLightActive;
 	public GameObject prisonLightInactive;
+	public VisualEffect[] coreRings;
 
 	public void ReleaseStar()
 	{
@@ -17,6 +19,10 @@ public class StarPickup : MonoBehaviour
 		}
 
 		StartCoroutine( AddStar() );
+		foreach(VisualEffect ringFX in coreRings)
+		{
+			if(ringFX) { ringFX.SetFloat("Power", 0); }
+		}
 	}
 
 	IEnumerator AddStar()
