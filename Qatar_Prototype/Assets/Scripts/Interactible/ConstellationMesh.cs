@@ -7,13 +7,18 @@ public class ConstellationMesh : MonoBehaviour
 	[Header("References")]
 	public GameObject objRef;
 
-	private Material m;
+	private Material[] m;
 	private bool isDisplayed = false;
 	private float timer = 1;
 
 	private void Start()
 	{
-		m = objRef.GetComponent<Renderer>().material;
+		Renderer[] rends = objRef.GetComponentsInChildren<Renderer>();
+		m = new Material[rends.Length];
+		for (int i = 0; i < rends.Length; i++)
+		{
+			m[i] = rends[i].material;
+		}
 	}
 
 	public void ShowObject()
@@ -27,7 +32,10 @@ public class ConstellationMesh : MonoBehaviour
 		if(isDisplayed && timer > 0)
 		{
 			timer -= Time.deltaTime * 0.25f;
-			m.SetFloat("_AlphaClip", timer);
+			foreach(Material sm in m)
+			{
+				if(sm) { sm.SetFloat("_AlphaClip", timer); }
+			}
 		}
 	}
 
