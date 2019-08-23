@@ -12,17 +12,7 @@ public class SandfallController : MonoBehaviour
 	public VisualEffect[] secondaryBlockedFall;
 	public float blockedSecondaryDelay = 1f;
 
-	private void Update()
-	{
-		if(Input.GetKeyDown(KeyCode.O))
-		{
-			BlockFall();
-		}
-		else if (Input.GetKeyDown(KeyCode.P))
-		{
-			UnblockFall();
-		}
-	}
+	public Collider col;
 
 	public void BlockFall()
 	{
@@ -35,6 +25,8 @@ public class SandfallController : MonoBehaviour
 		{ if (vfx) { vfx.SetBool("Emit", true); } }
 
 		Invoke("StartBlockedSecondary", blockedSecondaryDelay);
+
+		col.enabled = false;
 	}
 
 	public void UnblockFall()
@@ -48,6 +40,8 @@ public class SandfallController : MonoBehaviour
 		{ if (vfx) { vfx.SetBool("Emit", false); } }
 
 		Invoke("StopBlockedSecondary", blockedSecondaryDelay);
+
+		col.enabled = true;
 	}
 
 	private void StartFullSecondary()
